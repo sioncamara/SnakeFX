@@ -1,0 +1,2 @@
+java --module-path C:\Users\sionc\Downloads\FromGoogle\javafx-sdk-12.0.2\lib --add-modules javafx.controls -jar SnakeFX.jar 
+javac --module-path C:\Users\sionc\CodingProjects\IdeaProjects\SnakeFX\src\resources --add-modules javafx.controls SnakeApp.java
