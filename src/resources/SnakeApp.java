@@ -1,5 +1,6 @@
 package resources;
 
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -138,15 +139,12 @@ public class SnakeApp extends Application {
      * @param restartBut button to set handler for
      */
     private void playAgain(Button restartBut) {
-        restartBut.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                restartBut.setPrefSize(100, 50);
-                 snake = new Snake(120, 120, blockDimension, blockSpacing);
-                postDeathButtons.setVisible(false);
-                gameLoop = loop();
-                direction = null;
-            }
+        restartBut.setOnMouseClicked(event -> {
+            restartBut.setPrefSize(100, 50);
+             snake = new Snake(120, 120, blockDimension, blockSpacing);
+            postDeathButtons.setVisible(false);
+            gameLoop = loop();
+            direction = null;
         });
     }
 
@@ -167,26 +165,24 @@ public class SnakeApp extends Application {
 
         KeyFrame kf = new KeyFrame(
                 Duration.seconds(speed),
-                new EventHandler<ActionEvent>() {
-                    public void handle(ActionEvent ae) {
-                        gc.clearRect(0, 0, PRE_WIDTH, PRE_HEIGHT); // Clear the canvas
-                        food.draw(gc);
-                        snake.draw(gc);
-                        sizeLabel.setText("Length: " + snake.size());
+                ae -> {
+                    gc.clearRect(0, 0, PRE_WIDTH, PRE_HEIGHT); // Clear the canvas
+                    food.draw(gc);
+                    snake.draw(gc);
+                    sizeLabel.setText("Length: " + snake.size());
 
-                        // check if snake hit body or boundary
-                        if (!snake.move(direction, blockSpacing, blockSpacing, gameAreaEndX, gameAreaEndY)) {
-                            postDeathButtons.setVisible(true);
-                            restartBut.setStyle("-fx-background-color: #555555");
-                            changeDiff.setStyle("-fx-background-color: #555555");
-                            gameLoop.stop();
+                    // check if snake hit body or boundary
+                    if (!snake.move(direction, blockSpacing, blockSpacing, gameAreaEndX, gameAreaEndY)) {
+                        postDeathButtons.setVisible(true);
+                        restartBut.setStyle("-fx-background-color: #555555");
+                        changeDiff.setStyle("-fx-background-color: #555555");
+                        gameLoop.stop();
 
-                        }
+                    }
 
-                        if (snake.foodEaton(food)) {
-                            snake.growByTwo(direction);
-                            food.getMoreFood(snake);
-                        }
+                    if (snake.foodEaton(food)) {
+                        snake.growByTwo(direction);
+                        food.getMoreFood(snake);
                     }
                 });
 
@@ -203,38 +199,36 @@ public class SnakeApp extends Application {
      * @param scene scene to add listener to
      */
     private void addKeyListener(Scene scene) {
-        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            public void handle(KeyEvent keyEvent) {
-                if ((keyEvent.getCode() == KeyCode.RIGHT || keyEvent.getCode() == KeyCode.D)) {
-                    if (snake.size() == 1 || (snake.getPointX(0) + blockSpacing != snake.getPointX(1))) {
-                        direction = Direction.RIGHT;
-                    }
-
+        scene.setOnKeyPressed(keyEvent -> {
+            if ((keyEvent.getCode() == KeyCode.RIGHT || keyEvent.getCode() == KeyCode.D)) {
+                if (snake.size() == 1 || (snake.getPointX(0) + blockSpacing != snake.getPointX(1))) {
+                    direction = Direction.RIGHT;
                 }
 
-                // change direction to left if left arrow key or A key is pressed. Do not change if curr direction is right
-                else if ((keyEvent.getCode() == KeyCode.LEFT || keyEvent.getCode() == KeyCode.A)) {
-                    if (snake.size() == 1 || (snake.getPointX(0) - blockSpacing != snake.getPointX(1))) {
-                        direction = Direction.LEFT;
-                    }
+            }
 
+            // change direction to left if left arrow key or A key is pressed. Do not change if curr direction is right
+            else if ((keyEvent.getCode() == KeyCode.LEFT || keyEvent.getCode() == KeyCode.A)) {
+                if (snake.size() == 1 || (snake.getPointX(0) - blockSpacing != snake.getPointX(1))) {
+                    direction = Direction.LEFT;
                 }
-                // change direction to up if up arrow key or W key is pressed. Do not change if curr direction is down
-                else if ((keyEvent.getCode() == KeyCode.UP || keyEvent.getCode() == KeyCode.W)) {
-                    if (snake.size() == 1 || (snake.getPointY(0) - blockSpacing  != snake.getPointY(1))) {
-                        direction = Direction.UP;
-                    }
 
-
+            }
+            // change direction to up if up arrow key or W key is pressed. Do not change if curr direction is down
+            else if ((keyEvent.getCode() == KeyCode.UP || keyEvent.getCode() == KeyCode.W)) {
+                if (snake.size() == 1 || (snake.getPointY(0) - blockSpacing  != snake.getPointY(1))) {
+                    direction = Direction.UP;
                 }
-                // change direction to down if left arrow key or s key is pressed. Do not change if curr direction is up
-                else if ((keyEvent.getCode() == KeyCode.DOWN || keyEvent.getCode() == KeyCode.S)) {
-                    if (snake.size() == 1 || (snake.getPointY(0) + blockSpacing  != snake.getPointY(1))) {
-                        direction = Direction.DOWN;
-                    }
 
 
+            }
+            // change direction to down if left arrow key or s key is pressed. Do not change if curr direction is up
+            else if ((keyEvent.getCode() == KeyCode.DOWN || keyEvent.getCode() == KeyCode.S)) {
+                if (snake.size() == 1 || (snake.getPointY(0) + blockSpacing  != snake.getPointY(1))) {
+                    direction = Direction.DOWN;
                 }
+
+
             }
         });
     }

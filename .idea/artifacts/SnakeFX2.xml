@@ -1,12 +1,12 @@
 <component name="ArtifactManager">
-  <artifact type="javafx" name="SnakeFX">
-    <output-path>$PROJECT_DIR$/out/artifacts/SnakeFX</output-path>
+  <artifact type="javafx" name="SnakeFX2">
+    <output-path>$PROJECT_DIR$/out/artifacts/SnakeFX2</output-path>
     <properties id="javafx-properties">
       <options>
         <option name="appClass" value="resources.Main" />
         <option name="description" value="" />
         <option name="htmlPlaceholderId" value="" />
-        <option name="title" value="" />
+        <option name="title" value="SnakeFX" />
         <option name="vendor" value="" />
         <option name="version" value="" />
       </options>
